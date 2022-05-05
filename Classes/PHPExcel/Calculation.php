@@ -9,21 +9,6 @@ if (!defined('PHPEXCEL_ROOT')) {
     require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
 }
 
-if (!defined('CALCULATION_REGEXP_CELLREF')) {
-    //    Test for support of \P (multibyte options) in PCRE
-    if (defined('PREG_BAD_UTF8_ERROR')) {
-        //    Cell reference (cell or range of cells, with or without a sheet reference)
-        define('CALCULATION_REGEXP_CELLREF', '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d{1,7})');
-        //    Named Range of cells
-        define('CALCULATION_REGEXP_NAMEDRANGE', '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9\.]*)');
-    } else {
-        //    Cell reference (cell or range of cells, with or without a sheet reference)
-        define('CALCULATION_REGEXP_CELLREF', '(((\w*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d+)');
-        //    Named Range of cells
-        define('CALCULATION_REGEXP_NAMEDRANGE', '(((\w*)|(\'.*\')|(\".*\"))!)?([_A-Z][_A-Z0-9\.]*)');
-    }
-}
-
 /**
  * PHPExcel_Calculation (Multiton)
  *
@@ -62,9 +47,9 @@ class PHPExcel_Calculation
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION    = '@?([A-Z][A-Z0-9\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF    = CALCULATION_REGEXP_CELLREF;
+    const CALCULATION_REGEXP_CELLREF    = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d{1,7})';
     //    Named Range of cells
-    const CALCULATION_REGEXP_NAMEDRANGE    = CALCULATION_REGEXP_NAMEDRANGE;
+    const CALCULATION_REGEXP_NAMEDRANGE    = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9\.]*)';
     //    Error
     const CALCULATION_REGEXP_ERROR        = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
